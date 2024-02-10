@@ -1,3 +1,9 @@
-# WXT + SolidJS
+# Lyrics
 
-This template should help get you started developing with SolidJS in WXT.
+## Client
+
+Go into `apps/client` and run `pnpm run dev`
+
+## Server
+
+Go into `apps/server` and run `pnpm run dev`
