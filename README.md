@@ -1,9 +1,5 @@
 # Lyrics
 
-## Client
+## Installation
 
-Go into `apps/client` and run `pnpm run dev`
-
-## Server
-
-Go into `apps/server` and run `pnpm run dev`
+Install the dependencies by running `pnpm i` from the root. App specific instructions can be found in each app's README
