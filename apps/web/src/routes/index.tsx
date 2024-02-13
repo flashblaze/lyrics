@@ -1,18 +1,19 @@
 import { Title } from "@solidjs/meta";
-import Counter from "~/components/Counter";
 
 export default function Home() {
   return (
     <main>
       <Title>Hello World</Title>
-      <h1>Hello world!</h1>
-      <Counter />
       <p>
-        Visit{" "}
-        <a href="https://start.solidjs.com" target="_blank">
-          start.solidjs.com
-        </a>{" "}
-        to learn how to build SolidStart apps.
+        <a
+          href={`https://api.genius.com/oauth/authorize?client_id=${
+            import.meta.env.VITE_GENIUS_CLIENT_ID
+          }&redirect_uri=${
+            import.meta.env.VITE_LOCAL_BASE_URL
+          }/api/signup-login&scope=me&response_type=code`}
+        >
+          Login via Genius
+        </a>
       </p>
     </main>
   );

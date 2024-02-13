@@ -1,32 +1,17 @@
-# SolidStart
+# Web
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+Built using [SolidStart](https://start.solidjs.com) which was bootstrapped via [Solid-CLI](https://solid-cli.netlify.app)
 
-## Creating a project
+# Installation
 
-```bash
-# create a new project in the current directory
-npm init solid@latest
+Get the `CLIENT ID` and `CLIENT SECRET` from here: https://genius.com/api-clients and replace `VITE_GENIUS_CLIENT_ID` and `VITE_GENIUS_CLIENT_SECRET` with the values respectively.
 
-# create a new project in my-app
-npm init solid@latest my-app
-```
+Make sure the `REDIRECT URI` is `VITE_LOCAL_BASE_URL/api/signup-login`. Replace `VITE_LOCAL_BASE_URL` with the URL your app is running on. 
 
-## Developing
+# Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Install the dependencies by running `pnpm i` and then running the project by `pnpm run dev`. By default the app will run on port `3000`
 
-```bash
-npm run dev
+# Building
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Solid apps are built with _adapters_, which optimise your project for deployment to different environments.
-
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different adapter, add it to the `devDependencies` in `package.json` and specify in your `vite.config.js`.
-
-## This project was created with the [Solid CLI](https://solid-cli.netlify.app)
+Use `pnpm run build` to build the project and start it by `pnpm run start`
