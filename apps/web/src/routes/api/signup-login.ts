@@ -1,5 +1,6 @@
 import { redirect } from "@solidjs/router";
 import type { APIEvent } from "@solidjs/start/server";
+import getSession from "~/lib/session";
 
 export async function GET({ request }: APIEvent) {
   const url = new URL(request.url);
@@ -20,6 +21,18 @@ export async function GET({ request }: APIEvent) {
     }),
   });
   const data = await response.json();
-  console.log(data);
-  return redirect("/");
+  if (data.access_token && data.token_type === "bearer") {
+    const accountResponse = await fetch("https://api.genius.com/account", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${data.access_token}`,
+      },
+    });
+    if (accountResponse.status === 200) {
+      const session = await getSession();
+      await session.update(() => ({ accessToken: data.access_token }));
+      return redirect("/");
+    }
+  }
 }
