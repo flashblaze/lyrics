@@ -1,8 +1,9 @@
 import { redirect } from "@solidjs/router";
 import type { APIEvent } from "@solidjs/start/server";
-import getSession from "~/lib/session";
+import { setCookie } from "vinxi/http";
 
-export async function GET({ request }: APIEvent) {
+export async function GET(event: APIEvent) {
+  const { request } = event;
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
   if (!code) return redirect("/");
@@ -30,8 +31,7 @@ export async function GET({ request }: APIEvent) {
       },
     });
     if (accountResponse.status === 200) {
-      const session = await getSession();
-      await session.update(() => ({ accessToken: data.access_token }));
+      setCookie(event, "genius-lyrics-token", data.access_token);
       return redirect("/");
     }
   }

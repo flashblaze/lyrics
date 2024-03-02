@@ -1,26 +1,28 @@
 import { Title } from "@solidjs/meta";
 import { cache, createAsync } from "@solidjs/router";
 import { Show } from "solid-js";
-import getSession from "~/lib/session";
+import { getRequestEvent } from "solid-js/web";
+import { getCookie } from "vinxi/http";
 
-const getStudents = cache(async () => {
+const getAccessToken = cache(async () => {
   "use server";
-  const sessionData = await getSession();
-  return sessionData.data;
-}, "user");
+  const event = getRequestEvent();
+  const cookie = getCookie(event, "genius-lyrics-token");
+  return cookie;
+}, "token");
 
 export const route = {
-  load: () => getStudents(),
+  load: () => getAccessToken(),
 };
 
 export default function Home() {
-  const students = createAsync(() => getStudents());
+  const token = createAsync(() => getAccessToken());
 
   return (
     <main>
       <Title>Hello World</Title>
-      <Show when={students()} fallback={<p>No data</p>}>
-        <p>{students()?.accessToken}</p>
+      <Show when={token()} fallback={<p>No data</p>}>
+        <p>{token()}</p>
       </Show>
     </main>
   );

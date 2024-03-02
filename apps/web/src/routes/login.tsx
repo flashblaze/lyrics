@@ -1,9 +1,28 @@
 import { Title } from "@solidjs/meta";
+import { cache, createAsync, redirect } from "@solidjs/router";
+import { Show, getRequestEvent } from "solid-js/web";
+import { getCookie } from "vinxi/http";
 
-export default function Home() {
+const getAccessToken = cache(async () => {
+  "use server";
+  const event = getRequestEvent();
+  const cookie = getCookie(event, "genius-lyrics-token");
+  if (cookie) {
+    return redirect("/");
+  }
+  return cookie;
+}, "user");
+
+export const route = {
+  load: () => getAccessToken(),
+};
+
+export default function Login() {
+  createAsync(() => getAccessToken());
+
   return (
     <main>
-      <Title>Hello World</Title>
+      <Title>Login</Title>
       <p>
         <a
           href={`https://api.genius.com/oauth/authorize?client_id=${
