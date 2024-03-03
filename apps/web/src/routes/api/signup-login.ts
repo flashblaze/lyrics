@@ -6,7 +6,7 @@ export async function GET(event: APIEvent) {
   const { request } = event;
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  if (!code) return redirect("/");
+  if (!code) return redirect("/login");
   const response = await fetch("https://api.genius.com/oauth/token", {
     method: "POST",
     headers: {

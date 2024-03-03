@@ -1,22 +1,18 @@
-import { createEffect, createSignal, onMount } from "solid-js";
-import { browser } from "wxt/browser";
 import solidLogo from "@/assets/solid.svg";
 import wxtLogo from "/wxt.svg";
 import "./App.css";
+import { storage } from "wxt/storage";
+import { Show, createSignal, onMount } from "solid-js";
 
 function App() {
-  const [count, setCount] = createSignal(0);
+  const [accessToken, setAccessToken] = createSignal<string | undefined>(
+    undefined
+  );
 
-  onMount(async () => {
-    const tabs = await browser.tabs.query({});
-    const tab = tabs.find((ele) => ele.url?.includes("http://127.0.0.1"));
-    if (tab?.url) {
-      const cookie = await browser.cookies.get({
-        url: tab.url,
-        name: "lyrics_cookie",
-      });
-      console.log(cookie?.value);
-    }
+  onMount(() => {
+    storage
+      .getItem("local:accessToken")
+      .then((res) => setAccessToken(res as string | undefined));
   });
 
   return (
@@ -29,11 +25,11 @@ function App() {
           <img src={solidLogo} class="logo solid" alt="Solid logo" />
         </a>
       </div>
-      <h1>WXT + Solid</h1>
+      <h1>WXT + Solids</h1>
       <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
-        </button>
+        <Show when={!!accessToken()} fallback={<p>No access token</p>}>
+          <p>Access token: {accessToken()}</p>
+        </Show>
         <p>
           Edit <code>popup/App.tsx</code> and save to test HMR
         </p>

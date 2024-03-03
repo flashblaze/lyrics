@@ -1,13 +1,20 @@
 import { browser } from "wxt/browser";
+import { storage } from "wxt/storage";
 
-export default defineBackground(async () => {
-  const tabs = await browser.tabs.query({});
-  const tab = tabs.find((ele) => ele.url?.includes("http://localhost"));
-  if (tab?.url) {
-    const cookie = await browser.cookies.get({
-      url: tab.url,
-      name: "genius-lyrics-token",
-    });
-    console.log(cookie?.value);
-  }
+export default defineBackground(() => {
+  browser.tabs.query({}).then((tabs) => {
+    const tab = tabs.find((ele) => ele.url?.includes("http://localhost"));
+    if (tab?.url) {
+      browser.cookies
+        .get({
+          url: tab.url,
+          name: "genius-lyrics-token",
+        })
+        .then((cookie) => {
+          if (cookie?.value) {
+            storage.setItem("local:accessToken", cookie.value);
+          }
+        });
+    }
+  });
 });
