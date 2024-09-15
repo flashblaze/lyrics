@@ -1,12 +1,12 @@
 # Web
 
-Built using [SolidStart](https://start.solidjs.com) which was bootstrapped via [Solid-CLI](https://solid-cli.netlify.app)
+Built using [SolidStart](https://start.solidjs.com)
 
 # Installation
 
-Get the `CLIENT ID` and `CLIENT SECRET` from here: https://genius.com/api-clients and replace `VITE_GENIUS_CLIENT_ID` and `VITE_GENIUS_CLIENT_SECRET` with the values respectively.
-
-Make sure the `REDIRECT URI` is `VITE_LOCAL_BASE_URL/api/signup-login`. Replace `VITE_LOCAL_BASE_URL` with the URL your app is running on. 
+1. Create `.env` file
+2. Get the `CLIENT ID` and `CLIENT SECRET` from here: https://genius.com/api-clients and replace `VITE_GENIUS_CLIENT_ID` and `VITE_GENIUS_CLIENT_SECRET` with the values respectively.
+3. Make sure the `REDIRECT URI` is `VITE_LOCAL_BASE_URL/api/signup-login`. Replace `VITE_LOCAL_BASE_URL` with the URL your app is running on. 
 
 # Developing
 

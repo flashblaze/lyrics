@@ -1,13 +1,11 @@
 import { Title } from "@solidjs/meta";
 import { cache, createAsync, redirect } from "@solidjs/router";
 import { Show } from "solid-js";
-import { getRequestEvent } from "solid-js/web";
-import { getCookie } from "vinxi/http";
+import { getCookie, getEvent } from "vinxi/http";
 
 const getAccessToken = cache(async () => {
   "use server";
-  const event = getRequestEvent();
-  const cookie = getCookie(event, "genius-lyrics-token");
+  const cookie = getCookie(getEvent(), "genius-lyrics-token");
   if (!cookie) {
     return redirect("/login");
   }

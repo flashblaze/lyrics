@@ -31,7 +31,7 @@ export async function GET(event: APIEvent) {
       },
     });
     if (accountResponse.status === 200) {
-      setCookie(event, "genius-lyrics-token", data.access_token);
+      setCookie(event.nativeEvent, "genius-lyrics-token", data.access_token);
       return redirect("/");
     }
   }
